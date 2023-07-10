@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Execute GO Code</title>
+    <link rel="stylesheet" href="./static/index.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("form").submit(function(e) {
+                e.preventDefault();
+                var code = $("#code").val();
+
+                $.post("/execute", { code: code }, function(response) {                    
+                    $("#result").text(response.Result);
+                    $("#error").text(response.Error);
+                });
+            });
+        });
+    </script>    
+</head>
+<body>
+    <h1>Execute GO Code</h1>
+    <form>
+        <textarea id="code" name="code" rows="10" cols="50" placeholder="Write your code here"></textarea>
+        <br>
+        <input type="submit" value="Execute">
+    </form>
+    <h2>Result:</h2>
+    <pre id="result"></pre>
+    <h2>Error:</h2>
+    <pre id="error"></pre>
+</body>
+</html>
